@@ -1,10 +1,10 @@
-<h1>securedb</h1>
+<h1>fernetdb</h1>
 
-[![Downloads](https://static.pepy.tech/personalized-badge/securedb?period=total&units=none&left_color=grey&right_color=blue&left_text=Downloads)](https://pypi.org/project/securedb) [![PyPi version](https://badgen.net/pypi/v/securedb/)](https://pypi.org/project/securedb) [![PyPI status](https://img.shields.io/pypi/status/securedb.svg)](https://pypi.python.org/pypi/securedb/)
+[![Downloads](https://static.pepy.tech/personalized-badge/fernetdb?period=total&units=none&left_color=grey&right_color=blue&left_text=Downloads)](https://pypi.org/project/fernetdb) [![PyPi version](https://badgen.net/pypi/v/fernetdb/)](https://pypi.org/project/fernetdb) [![PyPI status](https://img.shields.io/pypi/status/fernetdb.svg)](https://pypi.python.org/pypi/fernetdb/)
 
 
-## securedb is a lightweight Python database framework to handle basic key-value encrypted data.
-## `pip install securedb --upgrade`
+## fernetDB is a lightweight Python database framework to handle basic key-value encrypted data.
+## `pip install fernetdb --upgrade`
 
 
 ## Content index
@@ -62,8 +62,8 @@
 ### Key
 To create a database, an encryption key is needed. To generate it, you can use the built-in `newkey()` function.
 ```py
-import securedb
-securedb.newkey(keyfile="path/to/key/storage") # the "keyfile" kwarg is optional and default set to ".key".
+import fernetdb
+fernetdb.newkey(keyfile="path/to/key/storage") # the "keyfile" kwarg is optional and default set to ".key".
 ```
 This will create a new file: it'll be named ".key" if no `keyfile` is specified, else it'll be named as you want.
 The key file is the file which contains the encryption key.
@@ -72,9 +72,9 @@ The key file is the file which contains the encryption key.
 
 ### Initialization
 ```py
-import securedb
+import fernetdb
 
-db = securedb.Db(db_path, path_to_key, force=True)
+db = fernetdb.Db(db_path, path_to_key, force=True)
 # path is the database storage location, key is the path to the key file and force is described below.
 ```
 With `force=True` the program will create a new db in the given path if no database is found. `force` is optional and default set to `False`.
