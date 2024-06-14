@@ -20,7 +20,7 @@ def decrypt(key, data):
     return fernet.decrypt(data)
 
 
-def newkey(**kwargs):
+def new_keyfile(**kwargs):
     # New in 2.0.0: keyfile now supports custom path
     keyfile = open(kwargs.get("keyfile", ".key"), "w+")
     editable = Fernet.generate_key()
@@ -28,24 +28,39 @@ def newkey(**kwargs):
     key = str(key1).replace("'", "")
     keyfile.write(str(key))
 
+def new_fernet_key(**kwargs):
+    editable = Fernet.generate_key()
+    key1 = str(editable).replace("b'", "")
+    key = str(key1).replace("'", "")
+    return str(key)
+
 
 class Db:
-    def __init__(self, path: str, key: str, **kwargs):
-        self.path = path
-        try:
-            with open(key, "r") as f:
-                keyf = f.read()
-        except FileNotFoundError:
-            raise PathError(f"Error: key file {key} does not exist.")
+    def __init__(self, db_path: str, db_keypath: str, db_fernet_key: str, **kwargs):
+        self.path = db_path
+
+        if not db_keypath:
+            if db_fernet_key:
+                try:
+                    keyf = db_fernet_key
+                except:
+                    raise InvalidKey(f"Error: key {db_fernet_key} is invalid.")
+        else:
+            try:
+                with open(db_keypath, "r") as f:
+                    keyf = f.read()
+            except FileNotFoundError:
+                raise PathError(f"Error: key file {db_keypath} does not exist.")
+                
         self.key = bytes(keyf.encode())
         self.force = kwargs.get("force", False)
 
         try:
-            if os.path.isdir(path):
+            if os.path.isdir(db_path):
                 return None
             else:
                 if self.force:  # New in 1.1.0: force=True -> Create a new database if it does not exist
-                    os.mkdir(path + "/")
+                    os.mkdir(db_path + "/")
                 else:
                     raise PathError
 
