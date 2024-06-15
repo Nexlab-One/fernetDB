@@ -32,7 +32,10 @@
 
 # Changelog
 
-## New in 2.0.2 (Latest)
+## New in 2.0.3 (Latest)
+- Database encryption keys can be loaded as a string instead of a filepath
+- Fernet Keys can be generated using: new_fernet_key()
+## New in 2.0.2
 -  Bugfix in the get_many() function
 -  Pep8 compliant
 -  Fixes in the docs
@@ -60,13 +63,21 @@
 
 ## DB Creation
 ### Key
-To create a database, an encryption key is needed. To generate it, you can use the built-in `newkey()` function.
+To create a database, an encryption key is needed. To generate it, you can use the built-in `new_keyfile()` function.
 ```py
 import fernetdb
-fernetdb.newkey(keyfile="path/to/key/storage") # the "keyfile" kwarg is optional and default set to ".key".
+fernetdb.new_keyfile(keyfile="path/to/key/storage") # the "keyfile" kwarg is optional and default set to ".key".
 ```
 This will create a new file: it'll be named ".key" if no `keyfile` is specified, else it'll be named as you want.
 The key file is the file which contains the encryption key.
+
+Or an encryption key string with `new_fernet_key()`:
+```py
+import fernetdb
+db_encryption_key = fernetdb.new_fernet_key()
+```
+This will generate a new key which can be stored in memory or on disk.
+
 
 
 
@@ -74,8 +85,11 @@ The key file is the file which contains the encryption key.
 ```py
 import fernetdb
 
-db = fernetdb.Db(db_path, path_to_key, force=True)
-# path is the database storage location, key is the path to the key file and force is described below.
+db = fernetdb.Db(db_path, db_keypath="path/to/key", force=True)
+# or if you have already generated a fernet key:
+db = fernetdb.Db(db_path, db_fernet_key="fernet_key_string", force=True)
+
+# db_path is the database storage location, db_keypath is the path to the key file and force is described below.
 ```
 With `force=True` the program will create a new db in the given path if no database is found. `force` is optional and default set to `False`.
 Remember that if you lost your key there will be no way to recover the database content.
