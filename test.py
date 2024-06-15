@@ -1,4 +1,4 @@
-from src import securedb
+from src import fernetdb
 db = securedb.Db("db", '.key', force=True)
 
 
