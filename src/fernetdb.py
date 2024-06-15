@@ -36,7 +36,7 @@ def new_fernet_key(**kwargs):
 
 
 class Db:
-    def __init__(self, db_path: str, db_keypath: str, db_fernet_key: str, **kwargs):
+    def __init__(self, db_path: str, db_keypath: str = None, db_fernet_key: str = None, **kwargs):
         self.path = db_path
 
         if not db_keypath:
