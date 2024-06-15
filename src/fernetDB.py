@@ -28,7 +28,7 @@ def new_keyfile(**kwargs):
     key = str(key1).replace("'", "")
     keyfile.write(str(key))
 
-def new_fernet_key(**kwargs):
+def new_fernet_key(**kwargs): # New in 2.0.3: generate a fernet key as return it as a string
     editable = Fernet.generate_key()
     key1 = str(editable).replace("b'", "")
     key = str(key1).replace("'", "")
@@ -36,7 +36,7 @@ def new_fernet_key(**kwargs):
 
 
 class Db:
-    def __init__(self, db_path: str, db_keypath: str = None, db_fernet_key: str = None, **kwargs):
+    def __init__(self, db_path: str, db_keypath: str = None, db_fernet_key: str = None, **kwargs): # New in 2.0.3: Use a fernet key file or fernet key string to decrypt/encrypt
         self.path = db_path
 
         if not db_keypath:
