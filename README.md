@@ -10,7 +10,8 @@
 ## Content index
 
 - [Changelog](#changelog)
-  - [New in 2.0.2 (Latest)](#new-in-202-latest)
+  - [New in 2.0.3 (Latest)](#new-in-203-latest)
+  - [New in 2.0.2](#new-in-202-latest)
   - [New in 2.0.1](#new-in-201)
   - [New in 2.0.0](#new-in-200)
   - [New in 1.1.0](#new-in-110)
